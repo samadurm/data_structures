@@ -39,6 +39,26 @@ class DLinkedList:
             self.head.prev = node
             self.head = node
     
+    def remove_front(self):
+        # case where head == None
+        if self.head == None:
+            raise Exception('Cannot remove from empty list')
+
+        # case where head == tail
+        if self.tail.prev == None:
+            cur = self.head
+            self.head = None
+            self.tail = None
+
+            return cur.item
+
+        # general case O(1)
+        cur = self.head
+        self.head = self.head.next
+        self.head.prev = None
+
+        return cur.item
+
     def remove_last(self):
         # handle case where tail is empty or tail = head
         if self.tail == None:
@@ -62,25 +82,32 @@ class DLinkedList:
         self.tail.next = None
         return cur.item
 
-    def remove_front(self):
-        # case where head == None
+    def remove_at(self, index):
+    #     # handle case where list is empty
+
+    #     # handle case where removing first
+
+    #     # handle general case, time complexity: O(N)
+        pass
+
+    def insert_at(self, index, item):
+        pass    
+
+    def get_value(self, index):
+        # handle case where list is empty
         if self.head == None:
-            raise Exception('Cannot remove from empty list')
+            return None
 
-        # case where head == tail
-        if self.tail.prev == None:
-            cur = self.head
-            self.head = None
-            self.tail = None
-
-            return cur.item
-
-        # general case O(1)
+        # handle general case. Time complexity: O(N)
         cur = self.head
-        self.head = self.head.next
-        self.head.prev = None
+        i = 0
 
-        return cur.item
+        while cur != None:
+            if i == index:
+                return cur.item
+
+            cur = cur.next
+        raise Exception('Supplied index is out of bounds of the list')
 
     def print_list(self):
         if self.head == None:
@@ -249,10 +276,12 @@ if __name__ == "__main__":
     llist.append(8)
     llist.print_list()
 
-    print('Removed:', llist.remove_front())
-    llist.print_list()
-    print('Removed:', llist.remove_front())
-    llist.print_list()
-    print('Removed:', llist.remove_front())
-    llist.print_list()
+
+    # print('Removed:', llist.remove_front())
+    # llist.print_list()
+    # print('Removed:', llist.remove_front())
+    # llist.print_list()
+    # print('Removed:', llist.remove_front())
+    # llist.print_list()
+
 

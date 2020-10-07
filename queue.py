@@ -2,7 +2,7 @@ import linked_list
 
 class Queue:
     def __init__(self, front=None):
-        self.values = linked_list.LinkedList()
+        self.values = linked_list.DLinkedList()
         self.front = front
         self.back = front
 
