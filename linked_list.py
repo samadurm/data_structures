@@ -182,6 +182,29 @@ class DLinkedList:
 
         return False
 
+    def remove_item(self, item):
+        if self.head == None:
+            raise Exception('Cannot remove from empty list')
+        
+        # see if its in the head node or tail node before removal
+        if self.head.item == item:
+            val = self.head.item 
+            self.head = self.head.next
+            return val
+        elif self.tail.item == item:
+            val = self.tail.item
+            self.tail.prev.next = None
+            return val
+
+        cur = self.head
+        while cur != None:
+            if cur.item == item:
+                val = cur.item
+                cur.prev.next = cur.next
+                cur.next.prev = cur.prev
+                return val
+            cur = cur.next
+
     def print_list(self):
         if self.head == None:
             print('Empty list')
