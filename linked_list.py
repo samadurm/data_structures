@@ -83,15 +83,72 @@ class DLinkedList:
         return cur.item
 
     def remove_at(self, index):
-    #     # handle case where list is empty
+        # handle case where list is empty
+        if self.head == None:
+            raise Exception('Cannot remove from empty list')
+        # handle case where removing first
+        elif index == 0:
+            cur = self.head
+            if self.head.next != None:
+                self.head.next.prev = None
+            self.head = self.head.next
+            return cur.item
 
-    #     # handle case where removing first
-
-    #     # handle general case, time complexity: O(N)
-        pass
+        # handle general case, time complexity: O(N)
+        cur = self.head
+        i = 0
+        while i < index:
+            if cur == None:
+                raise Exception('Reached end of list without finding index')
+            cur = cur.next
+            i += 1 
+        # remove the item
+        cur.prev.next = cur.next
+        if cur.next != None: # if not the last item
+            cur.next.prev = cur.prev
+        else:
+            self.tail = cur.prev # else last item, update the tail
+        return cur.item
 
     def insert_at(self, index, item):
-        pass    
+        # handle case where inserting to an empty list
+        if self.head == None and index != 0:
+            raise Exception('Cannot insert to that index in an empty list')
+        
+        node = self.Node(item)
+        if index == 0 and self.head == None:
+            self.head = node
+            self.tail = node
+
+        # handle case where first item is the head 
+        elif index == 0:
+            node.next = self.head
+            self.head.prev = node
+            self.head = node
+        else: 
+            # general case O(N)
+            cur = self.head
+            i = 0
+
+            while i < index:
+                if i == index - 1:
+                    break
+                elif cur.next == None:
+                    raise Exception('Reached end of list before index to insert')
+                cur = cur.next
+                i += 1
+            
+            # reach index, now insert the item
+
+            # check if adding to end of list
+            if cur.next == None:
+                cur.next = node
+                node.prev = cur
+                self.tail = node
+            else:
+                cur.next.prev = node
+                node.next = cur.next
+                cur.next = node
 
     def get_value(self, index):
         # handle case where list is empty
@@ -275,13 +332,3 @@ if __name__ == "__main__":
     llist.print_list()
     llist.append(8)
     llist.print_list()
-
-
-    # print('Removed:', llist.remove_front())
-    # llist.print_list()
-    # print('Removed:', llist.remove_front())
-    # llist.print_list()
-    # print('Removed:', llist.remove_front())
-    # llist.print_list()
-
-
