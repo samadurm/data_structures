@@ -166,6 +166,22 @@ class DLinkedList:
             cur = cur.next
         raise Exception('Supplied index is out of bounds of the list')
 
+    def contains_item(self, item):
+        # handle case where empty list
+        if self.head == None:
+            return False
+        # see if you can find at head or tail
+        if self.head.item == item or self.tail.item == item:
+            return True
+
+        cur = self.head
+        while cur.next != None:
+            if cur.item == item:
+                return True
+            cur = cur.next
+
+        return False
+
     def print_list(self):
         if self.head == None:
             print('Empty list')
